@@ -38,7 +38,7 @@ body {
   --input-size: 32px;
   --bar-font-size: 17px;
   --bar-icon-font-size: 24px;
-  --hover-transition: 0.1s ease-out;
+  --hover-transition: 0.05s ease-out;
   --background: #ffff;
   --input-bg: #eee;
   --background-translucent: #fffb;
@@ -47,9 +47,11 @@ body {
   --tinted: #d5e7fb;
   --gray: #e5e5e6;
   --button-color: rgb(162,162,162);
-  --accent-color: rgb(0, 122, 255);
-  --button-hover-filter: brightness(0.9);
-  --button-active-filter: brightness(0.8) drop-shadow(0 0 4px var(--accent-color));
+  --accent-color: rgb(97, 167, 241);
+  --button-hover-shadow: 0 0 0 1px var(--text-color),
+                         inset 0 0 0 1px var(--text-color);
+  --button-active-shadow: 0 0 0 2px var(--text-color),
+                          inset 0 0 0 2px var(--text-color);
   --button-corner-radius: 16px;
   --input-corner-radius: 4px;
   --content-padding: 20px;
@@ -75,7 +77,7 @@ body {
   --tinted: #2e4661;
   --gray: #747474;
   --button-color: rgb(131, 131, 131);
-  --accent-color: rgb(100, 175, 255);
+  --accent-color: rgb(24, 106, 194);
   }
 }
 
@@ -120,11 +122,13 @@ header h1 {
 header {
   top: var(--status-bar-height);
   background: linear-gradient(180deg, var(--background) 0%, var(--background-translucent) 100%);
+  padding: 0 4px;
 }
 
 footer {
   bottom: var(--home-bar-height);
   background: linear-gradient(0deg, var(--background) 0%, var(--background-translucent) 100%);
+  padding: 0 4px;
 }
 
 header button,
@@ -185,7 +189,7 @@ nav.stack > * + * {
 }
 
 button {
-  color: var(--accent-color);
+  color: var(--text-color);
   background: var(--background);
   height: var(--button-size);
   line-height: var(--button-size);
@@ -196,13 +200,11 @@ button {
 }
 
 button:not(.current):enabled:hover {
-  filter: var(--button-hover-filter);
-  transform: scale(1.05);
+  box-shadow: var(--button-hover-shadow);
 }
 
 button:not(.current):enabled:active {
-  filter: var(--button-active-filter);
-  transform: scale(1.1);
+  box-shadow: var(--button-active-shadow);
 }
 
 .medium {
@@ -224,16 +226,12 @@ button:not(.current):enabled:active {
 }
 
 .filled {
-  color: var(--background);
+  color: var(--text-color);
   background: var(--accent-color);
 }
 
 :disabled {
   opacity: 0.6;
-}
-
-.gray:disabled {
-  color: var(--background);
 }
 
 select,
