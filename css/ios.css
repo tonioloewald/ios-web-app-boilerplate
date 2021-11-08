@@ -39,10 +39,12 @@ body {
   --bar-font-size: 17px;
   --bar-icon-font-size: 24px;
   --hover-transition: 0.05s ease-out;
-  --background: #ffff;
+  --panel-bg: #eee;
+  --background: #fff;
   --input-bg: #eee;
   --background-translucent: #fffb;
   --text-color: #333;
+  --subtle-tint-bg: #3332;
   --input-text-color: #222;
   --tinted: #d5e7fb;
   --gray: #e5e5e6;
@@ -68,16 +70,17 @@ body {
 
 @media (prefers-color-scheme: dark) {
   .ios-base {
-    
-  --background: #222f;
-  --background-translucent: #222b;
-  --input-bg: #333;
-  --text-color: #ddd;
-  --input-text-color: #e8e8e8;
-  --tinted: #2e4661;
-  --gray: #747474;
-  --button-color: rgb(131, 131, 131);
-  --accent-color: rgb(24, 106, 194);
+    --panel-bg: #333f;
+    --background: #222f;
+    --background-translucent: #222b;
+    --input-bg: #333;
+    --text-color: #ddd;
+    --subtle-tint-bg: #ddd2;
+    --input-text-color: #e8e8e8;
+    --tinted: #2e4661;
+    --gray: #747474;
+    --button-color: rgb(131, 131, 131);
+    --accent-color: rgb(24, 106, 194);
   }
 }
 
@@ -91,6 +94,35 @@ body {
 
 .content > * {
   padding: calc(var(--content-padding) * 0.25) var(--content-padding);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--background);
+}
+
+.panel {
+  /* padding: calc(0.5 * var(--content-padding)) var(--content-padding); */
+  padding: 0;
+  background: var(--panel-bg);
+  border: 1px solid var(--subtle-tint-bg);
+  border-width: 1px 0;
+}
+
+.panel h3 {
+  padding: 0 var(--content-padding);
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 80%;
+  opacity: 0.75;
+  line-height: 34px;
+  margin: 10px 0 0 0;
+}
+
+.elastic {
+  flex: 1 1 auto;
 }
 
 header,
@@ -164,9 +196,109 @@ label {
   flex-direction: column;
 }
 
+label.row {
+  padding: 0 var(--content-padding);
+  height: 44px;
+}
+
+label.row+label.row {
+  border-top: 1px solid var(--subtle-tint-bg);
+}
+
+.switch {
+  border-radius: 14px;
+  height: 28px;
+  width: 48px;
+  margin: 8px 0;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.switch > input+span {
+  width: 48px;
+  height: 28px;
+  display: block;
+  position: relative;
+  transition: 0.1s ease-out;
+  background: var(--panel-bg);
+}
+
+.switch > input:checked+span {
+  background: var(--accent-color);
+}
+
+:not(.switch) > input[type="checkbox"]+span,
+:not(.switch) > input[type="radio"]+span {
+  content: ' ';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 10px 10px 10px 0;
+  background: var(--background);
+  box-shadow: inset 0 0 0 2px var(--subtle-tint-bg);
+}
+
+:not(.switch) > input[type="checkbox"]+span {
+  transition: 0.1s ease-out;
+  border-radius: 3px;
+  padding: 4px;
+}
+
+:not(.switch) > input[type="checkbox"]:checked+span {
+  box-shadow: inset 0 0 0 2px var(--accent-color);
+}
+
+input[type="checkbox"]+span::before {
+  transition: 0.1s ease-out;
+  color: var(--accent-color);
+  opacity: 0;
+}
+
+input[type="checkbox"]:checked+span::before {
+  opacity: 1;
+}
+
+:not(.switch) > input[type="radio"]+span {
+  border-radius: 12px;
+}
+
+:not(.switch) > input[type="radio"]:checked+span {
+  box-shadow: inset 0 0 0 7px var(--accent-color);
+}
+
+.switch > input+span::after {
+  content: ' ';
+  position: absolute;
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  left: 0;
+  top: 0;
+  transition: 0.1s ease-out;
+  background: var(--panel-bg);
+  box-shadow: inset 0 0 0 2px var(--subtle-tint-bg);
+}
+
+.switch > input:checked+span::after {
+  left: 20px;
+}
+
+.switch > input,
+input[type="checkbox"],
+input[type="radio"] {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+}
+
+.row > span {
+  text-align: left;
+}
+
 label > span {
   text-align: center;
-  color: var(--accent-color);
 }
 
 nav {
